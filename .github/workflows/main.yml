@@ -1,7 +1,6 @@
 name: CI
 on:
-  push: {}
-  workflow_dispatch: {}
+  workflow_dispatch: # 只保留手动触发
 
 permissions:
   contents: write
@@ -38,13 +37,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.prepareArtifact.outputs.releaseName }}
-          path: "module/build/out/*-release.zip"
+          path: "module/build/out/release"
 
       - name: Upload Debug Artifact
         uses: actions/upload-artifact@v4
         with:
           name: ${{ steps.prepareArtifact.outputs.debugName }}
-          path: "module/build/out/*-debug.zip"
+          path: "module/build/out/debug"
 
       - name: Create a release
         if: startsWith(github.ref, 'refs/tags/v')
