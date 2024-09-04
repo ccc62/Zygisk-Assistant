@@ -217,6 +217,16 @@ void doMrProp()
                 __system_property_update(const_cast<prop_info *>(pi), buffer, length);
                 resetCount++;
             }
+
+            // 针对 ro.boot.vbmeta.device_state 属性进行处理
+            if (strcmp(pi->name, "ro.boot.vbmeta.device_state") == 0)
+            {
+                if (strcmp(pi->value, "unlocked") == 0)
+                {
+                    __system_property_update(const_cast<prop_info *>(pi), "locked", strlen("locked"));
+                    LOGD("Modified ro.boot.vbmeta.device_state from 'unlocked' to 'locked'.");
+                }
+            }
         },
         nullptr);
 
