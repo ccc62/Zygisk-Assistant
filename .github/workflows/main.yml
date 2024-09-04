@@ -1,4 +1,4 @@
-name: CI
+name: main
 on:
   workflow_dispatch: # 只保留手动触发
 
